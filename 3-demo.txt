@@ -1,0 +1,38 @@
+
+
+docker-compose exec ksql-cli ksql http://ksql-server:8088
+
+
+SET 'auto.offset.reset'='earliest';
+
+CREATE STREAM stream_actors_raw WITH (KAFKA_TOPIC='mongo.got.got.actors', VALUE_FORMAT='AVRO');
+DESCRIBE stream_actors_raw;
+
+
+SELECT ROWKEY, AFTER, PATCH FROM stream_actors_raw EMIT CHANGES
+
+CREATE STREAM actors AS \
+    SELECT
+        CONCAT(IFNULL(after, ''), IFNULL(patch,'')) AS document, \
+        op, \
+        source, \
+        ts_ms
+    FROM stream_actors_raw ;
+
+
+SELECT 
+    EXTRACTJSONFIELD(REPLACE(EXTRACTJSONFIELD(document,'$._id'), '$oid', 'oid'), '$.oid') AS id, 
+    EXTRACTJSONFIELD(document, '$.name') AS name, 
+    op 
+FROM actors  WHERE document IS NOT NULL EMIT CHANGES;
+
+
+
+
+CREATE STREAM actors_clean AS
+SELECT 
+    EXTRACTJSONFIELD(REPLACE(EXTRACTJSONFIELD(document,'$._id'), '$oid', 'oid'), '$.oid') AS id, 
+    EXTRACTJSONFIELD(document, '$.name') AS name, 
+    op 
+FROM actors  WHERE document IS NOT NULL EMIT CHANGES;
+

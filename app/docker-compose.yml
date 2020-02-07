@@ -1,0 +1,27 @@
+version: '3.5'
+
+networks:
+    kafka-core_base-net:
+        external: true
+
+services:
+    producer:
+      build: 
+        dockerfile: Dockerfile
+        context: .
+      networks:
+          - kafka-core_base-net
+      environment:
+        TOPIC: 'demo-topic'
+      command: ["python", "-u", "./producer.py"]
+
+
+    consumer:
+      build: 
+        dockerfile: Dockerfile
+        context: .
+      networks:
+          - kafka-core_base-net
+      environment:
+        TOPIC: 'demo-topic'
+      command: ["python", "-u", "./consumer.py"]

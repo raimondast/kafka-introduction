@@ -1,0 +1,65 @@
+
+### Get connectors
+GET http://localhost:8083/connectors/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+### Create connector
+POST http://localhost:8083/connectors/ HTTP/1.1
+content-type: application/json
+
+{
+    "name": "source-mongo-got-actors",
+    "config": {
+        "connector.class": "io.debezium.connector.mongodb.MongoDbConnector",
+        "mongodb.password": "1234",
+        "tasks.max": "1",
+        "name": "source-mongo-got-actors",
+        "mongodb.user": "oplog",
+        "mongodb.name": "mongo.got",
+        "mongodb.hosts": "mongodb:27017",
+        "collection.whitelist": "got.actors"
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+### Create connector
+POST http://localhost:8083/connectors/ HTTP/1.1
+content-type: application/json
+
+{
+    "name": "source-mongo-got-characters",
+    "config": {
+        "connector.class": "io.debezium.connector.mongodb.MongoDbConnector",
+        "mongodb.password": "1234",
+        "tasks.max": "1",
+        "name": "source-mongo-got-characters",
+        "mongodb.user": "oplog",
+        "mongodb.name": "mongo.got",
+        "mongodb.hosts": "mongodb:27017",
+        "collection.whitelist": "got.characters"
+    }
+}

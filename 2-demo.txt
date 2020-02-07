@@ -1,0 +1,7 @@
+docker-compose upper
+
+# mongo-db
+
+# create connectors
+
+# update documents

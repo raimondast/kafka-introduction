@@ -1,0 +1,40 @@
+docker-compose up
+
+
+# List topics
+docker-compose exec broker kafka-topics --zookeeper zookeeper:2181 --list
+
+# Create topics
+docker-compose exec broker kafka-topics --zookeeper zookeeper:2181 --create --partitions 1 --replication-factor 1 --topic demo-topic
+
+# Delete topic
+docker-compose exec broker kafka-topics --zookeeper zookeeper:2181 --delete --topic demo-topic
+
+
+
+# Generate messages
+docker-compose exec broker kafka-console-producer --broker-list localhost:9092 --topic demo-topic
+
+
+
+# Read messages from latest
+docker-compose exec broker kafka-console-consumer --bootstrap-server localhost:9092 --group cli-1 --topic demo-topic
+
+
+
+# List consumer groups
+docker-compose exec broker kafka-consumer-groups --bootstrap-server localhost:9092 --list
+
+# Describe consumer group
+docker-compose exec broker kafka-consumer-groups --bootstrap-server localhost:9092 --describe --group cli-1
+
+# Reset consumer offset
+docker-compose exec broker kafka-consumer-groups --bootstrap-server localhost:9092 --group cli-1 --all-topics --reset-offsets --to-offset 5 --execute
+
+
+
+# producer app
+# consumer app
+
+# REST - list topics
+# Topics UI

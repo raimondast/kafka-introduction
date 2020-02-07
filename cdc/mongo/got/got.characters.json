@@ -1,0 +1,22 @@
+[
+    {
+      "_id" : ObjectId("5c9cc5d099e99e2c7a6f712b"),
+      "name": "John Snow",
+      "age": 25,
+      "items": ["item1", "item2"],
+      "metadata": {
+        "farther": "N/A",
+        "mother": "N/A"
+      }
+    },
+    {
+      "_id" : ObjectId("5c9cc5d099e99e2c7a6f712a"),
+      "name": "Eddard Stark",
+      "age": 50,
+      "items": ["item1", "item2"],
+      "metadata": {
+        "farther": "N/A",
+        "mother": "N/A"
+      }
+    }
+]

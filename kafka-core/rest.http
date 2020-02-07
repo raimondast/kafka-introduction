@@ -1,0 +1,10 @@
+# Get Topics
+GET http://localhost:8082/topics/
+
+
+
+
+### Get Messages
+GET http://localhost:8082/topics/demo-topic/partitions/0/messages?offset=0&count=100
+
+Accept: application/vnd.kafka.binary.v1+json'
